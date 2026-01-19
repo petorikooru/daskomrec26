@@ -1,21 +1,17 @@
 # Using Distrobox
 
 Distrobox is a way to run containerized linux distro on your terminal. 
-Quite useful if you want to seperate your workspace appart so that it doesnt clutter your main workspace.
+Quite useful if you want to seperate your workspace apart so that it doesnt clutter your main workspace.
 It uses either your standard Docker program or Podman as the backend.
 
 If you want to use it inside a distrobox container, here are the step required to setup stuff
 
-`"Basically, this is just for my workspace only though... - VIM`
+`"Basically, this is just for my workspace only though..." - VIM`
 
 1. Create the distrobox container
 
 ```sh
-distrobox create\
-    -n webdev-daskomrec26\
-    -i docker.io/library/archlinux:latest\
-    -I\
-    -a "composer php mariadb npm nodejs eza starship systemd neovim"
+distrobox create -n webdev-daskomrec26 -i quay.io/toolbx/arch-toolbox:latest --init --additional-packages "composer mariadb php npm nodejs eza starship systemd neovim"
 ```
 
 2. Go inside the container
@@ -37,17 +33,8 @@ After that, run this:
 
 ```sh
 sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-```
-
-```sh
 sudo chown -R mysql:mysql /var/lib/mysql
-```
-
-```sh
 sudo systemctl start mariadb
-```
-
-```sh
 sudo mariadb
 ```
 
@@ -58,6 +45,7 @@ CREATE DATABASE daskomrec26;
 CREATE USER 'laravel'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON daskomrec26.* TO 'laravel'@'localhost';
 FLUSH PRIVILEGES;
+exit
 ```
 
 Then, change this lines on the `.env` file:
