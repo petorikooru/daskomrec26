@@ -58,25 +58,25 @@ export default function Welcome() {
     }
 
     /* Class untuk menerapkan animasi ikan */
-    .fish-lt { /* Left Top */
+    .fish-lt {
         position: absolute;
         animation: swimLeftTop 8s ease-out forwards;
         animation-delay: 0.5s;
         transform: rotate(0deg);
     }
-    .fish-lb { /* Left Bottom */
+    .fish-lb { 
         position: absolute;
         animation: swimLeftBottom 9s ease-out forwards;
         animation-delay: 1s;
         transform: rotate(-15deg);
     }
-    .fish-rt { /* Right Top */
+    .fish-rt {
         position: absolute;
         animation: swimRightTop 8s ease-out forwards;
         animation-delay: 0.2s;
         transform: scaleX(-1) rotate(0deg);
     }
-    .fish-rb { /* Right Bottom */
+    .fish-rb { 
         position: absolute;
         animation: swimRightBottom 9s ease-out forwards;
         animation-delay: 1.2s;
@@ -201,7 +201,7 @@ export default function Welcome() {
                     <ParallaxLayer 
                       offset={1.5} 
                       speed={0} 
-                      factor={3} 
+                      factor={2} 
                       style={{ 
                         zIndex: 1 
                     }}>
@@ -293,16 +293,21 @@ export default function Welcome() {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            zIndex: 50
+                            justifyContent: 'flex-end',
+                            paddingBottom: '5vh',
+                            zIndex: 50,
+                            pointerEvents: 'none'
                         }}
                     >
                         <Link href="/login">
                             <div
                                 style={{
-                                    marginTop: '165%',
+                                    marginBottom: '5vh',
                                     cursor: 'pointer',
                                     transition: 'transform 0.3s ease',
                                     position: 'relative',
+                                    pointerEvents: 'auto',
+                                    width: 'clamp(200px, 30vw, 400px)'
                                 }}
                                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
@@ -313,8 +318,6 @@ export default function Welcome() {
                                     style={{
                                         width: '100%',
                                         height: 'auto',
-                                        left: '50%',
-                                        right: '50%',
                                         filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))',
                                         display: 'block',
                                     }}
@@ -325,7 +328,7 @@ export default function Welcome() {
                                     left: '50%',
                                     transform: 'translate(-50%, -60%)',
                                     fontFamily: 'Caudex',
-                                    fontSize: '45px',
+                                    fontSize: 'clamp(24px. 4vw, 45px)',
                                     fontWeight: 'semibold',
                                     color: '#ffffff',
                                     letterSpacing: '2px',
@@ -338,15 +341,12 @@ export default function Welcome() {
                         </Link>
 
                         <div style={{
-                            position: 'absolute',
-                            marginTop: '85%',
-                            left: 0,
-                            right: 0,
                             textAlign: 'center',
                             fontFamily: 'Caudex',
                             color: 'white',
-                            fontSize: '20px',
-                            letterSpacing: '1px'
+                            fontSize: 'clamp(12px, 2vw, 20px)',
+                            letterSpacing: '1px',
+                            pointerEvents: 'none',
                         }}>
                             @Atlantis.DLOR2026. All Right Served
                         </div>
@@ -358,7 +358,10 @@ export default function Welcome() {
                         speed={0.1}
                         factor={2}
                         style={{
-                            zIndex: 3
+                            zIndex: 3,
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            justifyContent: 'center',
                         }}
                     >
                         <img
@@ -366,10 +369,10 @@ export default function Welcome() {
                             alt="rocks"
                             style={{
                                 width: '100%',
+                                minWidth: '800px',
                                 height: 'auto',
                                 position: 'absolute',
-                                bottom: '5px',
-                                left: '0',
+                                bottom: '5vh',
                                 filter: 'sepia(1) hue-rotate(150deg) saturate(2) contrast(1.5) brightness(0.9)'
                             }}
 
