@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 // Make sure these paths match your project structure
-import ButtonLeft from '@assets/buttons/04-Button.png';
-import ButtonRight from '@assets/buttons/05-Button.png';
+import ButtonLeft from '@assets/buttons/ButtonLeft.png';
+import ButtonRight from '@assets/buttons/ButtonRight.png';
 
 // === REUSABLE BUTTON COMPONENT ===
 const ControlButton = ({ onClick, disabled, src, alt }) => {
@@ -22,14 +22,13 @@ const ControlButton = ({ onClick, disabled, src, alt }) => {
                 relative focus:outline-none 
                 flex items-center justify-center
                 ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-                /* Removed fixed width/height on container to let image dictate size */
             `}
         >
             <img 
                 src={src} 
                 alt={alt}
                 className={`
-                    h-14 md:h-20 w-auto 
+                    h-16 md:h-22 w-auto 
                     object-contain transition-all duration-100 ease-out
                     ${pressed ? 'scale-90 brightness-110' : 'scale-100 hover:brightness-105'}
                 `}
@@ -96,7 +95,7 @@ export default function BookControls({
                     value={inputVal}
                     onChange={(e) => setInputVal(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="w-10 md:w-12 bg-transparent text-center text-white focus:outline-none focus:border-white transition-colors"
+                    className="w-4 bg-transparent text-center text-white focus:outline-none focus:border-white transition-colors"
                 />
                 <span 
                     className="opacity-50 whitespace-nowrap"

@@ -1,5 +1,5 @@
 import React from 'react';
-import popupFrameBlue from '@assets/backgrounds/01-Aboard_PC.png';
+import popupFrameBlue from '@assets/backgrounds/01-ABoard_PC.png';
 import btnCloseXImg from '@assets/buttons/07-Button.png';
 import logoImg from '@assets/logo/ORB_DLOR 1.png'; 
 

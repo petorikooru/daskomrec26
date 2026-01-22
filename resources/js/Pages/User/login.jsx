@@ -20,7 +20,7 @@ export default function Login() {
 
     const BASE_OFFSET = { x: 0, y: 430 };
     const OUT_OFFSET = { x: 0, y: 430 };
-    const IN_OFFSET = { x: 0, y: 1200 };
+    const IN_OFFSET = { x: 0, y: 1100 };
 
     const SCALE = {
         bg: { enter: 1.0, idle: 1.7, out: 1.2 },
@@ -173,7 +173,7 @@ t
                 {/* Scroll & Form */}
                 <div className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none" ref={scrollWrapperRef}>
                     <div
-                        className="flex flex-col items-center justify-center transition-all duration-1500 ease-in-out"
+                        className="flex flex-col items-center justify-center transition-all duration-1000 ease-in-out"
                         style={{
                             transform: `scale(${SCALE.scroll[cameraState] ?? SCALE.scroll.idle})`,
                             opacity: fadeScroll ? 0 : (cameraState === 'enter' || cameraState === 'out' ? 0 : 1),
@@ -188,7 +188,7 @@ t
                             alt="scroll"
                             className="w-auto max-h-full object-contain cold-blue-filter-scroll origin-center scale-125 sm:scale-170 md:scale-190"
                         />  
-                        <div className="absolute inset-0 flex flex-col items-center justify-center px-8 sm:px-12 text-[#0b3a66] gap-1 sm:gap-6">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center px-14 sm:px-12 text-[#0b3a66] gap-1 sm:gap-6">
                             <h1 className="font-serif font-extrabold tracking-wide drop-shadow-lg text-4xl sm:text-5xl md:text-6xl mb-2 sm:mb-4 text-center"
                                 style={{ 
                                     fontFamily: 'Cormorant Infant', 
@@ -201,8 +201,12 @@ t
                             <form onSubmit={handleSubmit} className="w-[80%] sm:w-[90%] max-w-105 flex flex-col gap-3 sm:gap-4">
                                 <div className="flex flex-col gap-1">
                                     <label 
-                                        className="font-serif font-bold text-lg sm:text-xl md:text-3xl" 
-                                        style={{ color: '#0c365b' }}
+                                        className="font-serif font-bold text-xl sm:text-2xl md:text-4xl" 
+                                        style={{ 
+                                            fontFamily: 'Cormorant Infant', 
+                                            color: '#0c365b', 
+                                            textShadow: '0 2px 10px rgba(12, 54, 91, 0.3), 0 0 20px rgba(96, 165, 250, 0.2)' 
+                                        }}
                                     >
                                         Username
                                     </label>
@@ -213,8 +217,12 @@ t
                                 </div>
                                 <div className="flex flex-col gap-1">
                                     <label 
-                                        className="font-serif font-bold text-lg sm:text-xl md:text-3xl" 
-                                        style={{ color: '#0c365b' }}
+                                        className="font-serif font-bold text-xl sm:text-2xl md:text-4xl" 
+                                        style={{ 
+                                            fontFamily: 'Cormorant Infant', 
+                                            color: '#0c365b', 
+                                            textShadow: '0 2px 10px rgba(12, 54, 91, 0.3), 0 0 20px rgba(96, 165, 250, 0.2)' 
+                                        }}
                                     >
                                         Password
                                     </label>

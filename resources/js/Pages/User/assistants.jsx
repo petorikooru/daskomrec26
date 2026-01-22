@@ -51,9 +51,6 @@ export default function Assistants() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // ==========================================
-    // 2. INTRO ANIMATIONS
-    // ==========================================
     useEffect(() => {
         const showTimer = setTimeout(() => setShowImage(true), 300);
         
@@ -82,9 +79,6 @@ export default function Assistants() {
         };
     }, []);
 
-    // ==========================================
-    // 3. HANDLERS
-    // ==========================================
     const toggleSidebar = () => {
         if (inputLocked || isLoggingOut) return;
         setIsSidebarOpen(prev => !prev);
@@ -123,9 +117,6 @@ export default function Assistants() {
         setPageIndex(index);
     };
 
-    // ==========================================
-    // 4. STYLES
-    // ==========================================
     const styles = `
         /* Background Filter */
         .cold-blue-filter {
@@ -191,7 +182,6 @@ export default function Assistants() {
 
             <div className="relative w-full min-h-screen overflow-hidden flex items-center justify-center">
 
-                {/* LAYER 1: BACKGROUND */}
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, #0a2a4a, #0c365b)' }} />
                 <div className="absolute inset-0 cold-blue-filter">
                     <img
@@ -208,21 +198,21 @@ export default function Assistants() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/30 pointer-events-none transition-opacity duration-1000" style={{ opacity: showImage && imageLoaded ? 1 : 0 }} />
 
 
-                {/* LAYER 2: THE 3D BOOK */}
+                {/* The Book */}
                 <div 
-                    className={`absolute top-22 md:top-7 z-60 text-center text-extrabold transition-all duration-1000`}
+                    className={`absolute top-22 md:top-6 z-60 text-center font-extrabold transition-all duration-700
+                        ${!inputLocked && !isLoggingOut ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}`}
+                    style={{ fontFamily: 'Cormorant Infant, serif' }}
                 >
                     <h1 
                         className="text-4xl md:text-4xl text-white leading-tight"
-                        style={{ fontFamily: 'Cormorant Infant, serif' }}
                     >
                         Daskom Laboratory
                     </h1>
-                    <h1 className="text-5xl text-white leading-tight">
+                    <h1 className="text-6xl text-white leading-tight">
                         Assistants 2026
                     </h1>
                 </div>
-                {/* ======================= */}
                 <div 
                     className="absolute z-50 transition-all duration-1000 book-filter"
                     style={getBookStyle()}
@@ -230,15 +220,11 @@ export default function Assistants() {
                     <AssistantBook 
                         ref={bookControlRef} 
                         onPageChange={onBookFlip}
-                        
-                        // === PASS DYNAMIC SIZES ===
                         width={bookDim.width}
                         height={bookDim.height}
                     />
                 </div>
 
-
-                {/* LAYER 3: UI ELEMENTS */}
                 <BookControls 
                     className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-60 transition-all duration-700
                         ${!inputLocked && !isLoggingOut ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}

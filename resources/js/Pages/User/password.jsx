@@ -6,6 +6,7 @@ import ButtonHome from '@components/ButtonHome';
 import UserSidebar from '@components/UserSidebar';
 import ConfirmationModal from '@components/ConfirmationModal';
 import SuccessModal from '@components/SuccessModal';
+import UnderwaterEffect from '@components/UnderwaterEffect'
 
 import utama from '@assets/backgrounds/utama.png'; 
 import build from '@assets/others/DECORATIONS/Atlantis Ruins/06-Building.png';
@@ -122,6 +123,7 @@ const handleConfirmChange = () => {
             <style>{swimStyle}</style>
 
             <div className="relative w-full h-screen overflow-hidden text-white font-caudex">
+                <UnderwaterEffect/>
                 
                 {/* 1. BACKGROUND */}
                 <div className="absolute inset-0 z-0 pointer-events-none blur-[3px] transition-all duration-700">

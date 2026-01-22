@@ -6,16 +6,16 @@ import background from '@assets/backgrounds/AssistantBackground.png';
 import ButtonSidebar from '@components/ButtonSidebar';
 import ButtonHome from '@components/ButtonHome';
 import UserSidebar from '@components/UserSidebar';
-import CardCaas from '@components/CaasCard';
+import CoresMap from '@components/CoresMap';
 
-export default function Home() {
+export default function Cores() {
     const backgroundRef = useRef(null);
 
     // Intro states
     const [showImage, setShowImage] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
     const [inputLocked, setInputLocked] = useState(true);
-    const [isCardPlacing, setIsCardPlacing] = useState(true);
+    const [isMapPlacing, setisMapPlacing] = useState(true);
 
     // Sidebar
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function Home() {
     useEffect(() => {
         const showTimer = setTimeout(() => setShowImage(true), 300);
         const placeCardTimer = setTimeout(() => {
-            setIsCardPlacing(false);
+            setisMapPlacing(false);
             setInputLocked(false);
         }, 100);
 
@@ -58,7 +58,7 @@ export default function Home() {
             clearTimeout(showTimer);
             clearTimeout(placeCardTimer);
             setShowImage(true);
-            setIsCardPlacing(false);
+            setisMapPlacing(false);
             setInputLocked(false);
         };
 
@@ -112,10 +112,10 @@ export default function Home() {
         };
     };
 
-    const getCardStyle = () => {
-        let scale = isCardPlacing ? 1.8 : 1.0;
-        let rotate = isCardPlacing ? -25 : -20;
-        let opacity = isCardPlacing ? 0 : 1;
+    const getMapStyle = () => {
+        let scale = isMapPlacing ? 1.8 : 1.0;
+        let rotate = isMapPlacing ? -25 : -10;
+        let opacity = isMapPlacing ? 0 : 1;
 
         if (isExiting) {
             opacity = 0;
@@ -199,18 +199,12 @@ export default function Home() {
                     onLogout={handleLogout}
                 />
 
-                {/* Card */}
+                {/* Map */}
                 <div
                     className="absolute inset-0 flex items-center justify-center"
-                    style={getCardStyle()}
+                    style={getMapStyle()}
                 >
-                    <CardCaas
-                        sex="male"
-                        name="Jyothi Divyananda"
-                        nim="101012400159"
-                        cls="TT-48-02"
-                        major="Teknik Telekomunikasi"
-                    />
+                    <CoresMap />
                 </div>
 
                 {/* Exit Fade */}
