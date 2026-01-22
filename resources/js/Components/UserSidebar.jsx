@@ -85,7 +85,7 @@ export default function UserSidebar({ isOpen, onClose, onLogout }) {
                             <button type="button" className={buttonWrapper} onClick={() => {router.visit('/user/profile')}}>
                                 <img src={ButtonProfile} className={imageStyle} alt="Profile" />
                             </button>
-                            <button type="button" className={buttonWrapper}>
+                            <button type="button" className={buttonWrapper} onClick={() => {router.visit('/user/password')}}>
                                 <img src={ButtonPassword} className={imageStyle} alt="Password" />
                             </button>
                         </div>
