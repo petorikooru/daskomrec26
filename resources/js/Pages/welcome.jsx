@@ -306,14 +306,14 @@ export default function Welcome() {
 
                     {/* Contents */}
                     <ParallaxLayer offset={0} speed={0} className="flex items-center justify-center z-[100]">
-                        <div className={`flex flex-col items-center text-center text-white max-w-2xl px-5 mt-32 md:mt-80 font-['Caudex'] transition-all duration-1000 delay-500 ${showIntro ? 'opacity-0 translate-y-10' : 'opacity-100 translate-y-0'}`}>
+                        <div className={`flex flex-col items-center text-center text-white max-w-2xl px-14 sm:px-5 mt-20 font-['Caudex'] transition-all duration-1000 delay-500 ${showIntro ? 'opacity-0 translate-y-10' : 'opacity-100 translate-y-0'}`}>
                                 
                             <div className="mb-8 flex justify-center items-center gap-2">
                                 <img src={daskomLogo} alt="Logo Daskom" className="w-24 md:w-32 h-auto" />
                                 <img src={dlorLogo} alt="Logo DLOR" className="w-32 md:w-48 h-auto" />
                             </div>
 
-                            <div className="text-xl md:text-2xl lg:text-3xl leading-relaxed text-left drop-shadow-lg">
+                            <div className="text-xl md:text-2xl sm:text-3xl leading-relaxed text-left drop-shadow-lg">
                                 <p className="mb-4">True knowledge, like the lost kingdom, awaits only in the crushing deep.</p>
                                 <p className="mb-4">The gates of this Atlantis have opened for those brave enough to endure the pressure.</p>
                                 <p className="mb-4">We seek resilient guardians to uphold a legacy time could not erode.</p>

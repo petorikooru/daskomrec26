@@ -74,13 +74,20 @@ const StatusBadge = ({ isOn, activeText, inactiveText }) => (
 
 const CoreCard = ({ core, onRequestUpdate }) => {
     const [localCode, setLocalCode] = useState(core.code);
+    const [localClue, setLocalClue] = useState(core.clue || ""); // New Clue State
     const [showCode, setShowCode] = useState(false);
-    const hasChanges = localCode !== core.code;
-    useEffect(() => { setLocalCode(core.code); }, [core.code]);
+    
+    // Check if either field has changed
+    const hasChanges = localCode !== core.code || localClue !== (core.clue || "");
+    
+    useEffect(() => { 
+        setLocalCode(core.code); 
+        setLocalClue(core.clue || "");
+    }, [core.code, core.clue]);
 
     return (
         <div className={`
-            relative p-6 border-double border-4 backdrop-blur-md transition-all duration-500 group flex flex-col gap-5
+            relative p-6 border-double border-4 backdrop-blur-md transition-all duration-500 group flex flex-col gap-6
             ${core.isSolved 
                 ? 'bg-[#0f1c2e]/60 border-cyan-500/30 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]' 
                 : 'bg-[#0a0f16]/60 border-slate-700/30 hover:border-slate-500/50'}
@@ -93,34 +100,59 @@ const CoreCard = ({ core, onRequestUpdate }) => {
                 <div className={`w-2 h-2 rotate-45 transition-colors duration-500 ${core.isSolved ? 'bg-cyan-400 shadow-[0_0_10px_#22d3ee]' : 'bg-rose-900 border border-rose-500/50'}`} />
             </div>
 
-            {/* Input Area */}
-            <div className="relative group/input">
-                <label className="text-[9px] text-cyan-200/40 uppercase font-bold absolute -top-2 left-0 tracking-widest">Passcode Key</label>
-                <div className="relative">
+            <div className="flex flex-col gap-4">
+                
+                {/* --- NEW CLUE INPUT SECTION --- */}
+                <div className="relative group/input">
+                    <label className="text-[9px] text-amber-200/30 uppercase font-bold absolute -top-2 left-0 tracking-widest">
+                        Hint / Clue
+                    </label>
                     <input 
-                        type={showCode ? "text" : "password"}
-                        value={localCode}
-                        onChange={(e) => setLocalCode(e.target.value)}
+                        type="text"
+                        value={localClue}
+                        onChange={(e) => setLocalClue(e.target.value)}
+                        placeholder="Enter hint text..."
                         className={`
-                            w-full bg-black/20 border-b-2 text-center text-sm font-mono tracking-[0.3em] py-3 focus:outline-none transition-all pr-8
-                            ${hasChanges 
-                                ? 'border-amber-500 text-amber-200 shadow-[0_10px_20px_-10px_rgba(245,158,11,0.2)]' 
-                                : core.isSolved 
-                                    ? 'border-cyan-500/30 text-cyan-100 focus:border-cyan-400' 
-                                    : 'border-white/10 text-slate-400 focus:border-white/30'
-                            }
+                            w-full bg-black/10 border-b border-white/10 
+                            text-left text-xs font-serif italic text-amber-100/70 py-2 
+                            focus:outline-none focus:border-amber-500/40 focus:bg-black/30 
+                            transition-all placeholder-white/10
                         `}
                     />
-                    {/* Eye Icon */}
-                    <button onClick={() => setShowCode(!showCode)} className="absolute right-0 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors p-2">
-                        {showCode ? <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg> : <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>}
-                    </button>
+                </div>
+
+                {/* --- PASSCODE INPUT SECTION --- */}
+                <div className="relative group/input">
+                    <label className="text-[9px] text-cyan-200/40 uppercase font-bold absolute -top-2 left-0 tracking-widest">
+                        Passcode Key
+                    </label>
+                    <div className="relative">
+                        <input 
+                            type={showCode ? "text" : "password"}
+                            value={localCode}
+                            onChange={(e) => setLocalCode(e.target.value)}
+                            className={`
+                                w-full bg-black/20 border-b-2 text-center text-sm font-mono tracking-[0.3em] py-3 focus:outline-none transition-all pr-8
+                                ${hasChanges 
+                                    ? 'border-amber-500 text-amber-200 shadow-[0_10px_20px_-10px_rgba(245,158,11,0.2)]' 
+                                    : core.isSolved 
+                                        ? 'border-cyan-500/30 text-cyan-100 focus:border-cyan-400' 
+                                        : 'border-white/10 text-slate-400 focus:border-white/30'
+                                }
+                            `}
+                        />
+                        {/* Eye Icon */}
+                        <button onClick={() => setShowCode(!showCode)} className="absolute right-0 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors p-2">
+                            {showCode ? <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg> : <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>}
+                        </button>
+                    </div>
                 </div>
             </div>
 
             {/* Save Button */}
             <div className={`transition-all duration-500 overflow-hidden ${hasChanges ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <button onClick={() => onRequestUpdate(core.id, localCode, core.name)} className="w-full py-2 bg-amber-600/20 border border-amber-500/50 hover:bg-amber-600 hover:text-black text-amber-200 text-xs font-serif font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2">
+                {/* Updated to pass localClue as well */}
+                <button onClick={() => onRequestUpdate(core.id, localCode, localClue, core.name)} className="w-full py-2 bg-amber-600/20 border border-amber-500/50 hover:bg-amber-600 hover:text-black text-amber-200 text-xs font-serif font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2">
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg> Save Changes
                 </button>
             </div>
@@ -144,11 +176,12 @@ export default function AdminDashboard() {
     const [failMessage, setFailMessage] = useState("Unfortunately, you did not pass this selection phase.");
     const [failLink, setFailLink] = useState("");
 
+    // Added 'clue' to data structure
     const [cores, setCores] = useState([
-        { id: 1, name: 'Core Xurith', code: '8921', isSolved: true },
-        { id: 2, name: 'Core Thevia', code: 'X-99', isSolved: false },
-        { id: 3, name: 'Core Euprus', code: '7712', isSolved: false },
-        { id: 4, name: 'Core Northgard', code: '33-B', isSolved: false },
+        { id: 1, name: 'Core Xurith', code: '8921', clue: 'Binary sequence start', isSolved: true },
+        { id: 2, name: 'Core Thevia', code: 'X-99', clue: 'Look under the desk', isSolved: false },
+        { id: 3, name: 'Core Euprus', code: '7712', clue: 'Year of establishment', isSolved: false },
+        { id: 4, name: 'Core Northgard', code: '33-B', clue: 'Sector 7 G', isSolved: false },
     ]);
 
     // UI States
@@ -167,14 +200,26 @@ export default function AdminDashboard() {
 
     // Handlers
     const requestChange = (type, value) => { setPendingAction({ type, value }); setIsConfirmOpen(true); };
-    const requestCoreUpdate = (id, newCode, name) => { setPendingAction({ type: 'core', value: { id, newCode, name } }); setIsConfirmOpen(true); };
+    
+    // Updated to accept newClue argument
+    const requestCoreUpdate = (id, newCode, newClue, name) => { 
+        setPendingAction({ type: 'core', value: { id, newCode, newClue, name } }); 
+        setIsConfirmOpen(true); 
+    };
     
     const applyChange = () => {
         const { type, value } = pendingAction;
         if (type === 'shift') setShiftOn(value);
         if (type === 'announcement') setAnnouncementOn(value);
         if (type === 'state') setSystemState(value);
-        if (type === 'core') setCores(prev => prev.map(c => c.id === value.id ? { ...c, code: value.newCode } : c));
+        
+        // Updated to save both code and clue
+        if (type === 'core') {
+            setCores(prev => prev.map(c => 
+                c.id === value.id ? { ...c, code: value.newCode, clue: value.newClue } : c
+            ));
+        }
+        
         setIsConfirmOpen(false); setPendingAction({ type: '', value: null });
     };
 
@@ -268,7 +313,19 @@ export default function AdminDashboard() {
                         <h3 className="text-3xl text-amber-100 font-serif font-bold mb-6 text-center tracking-wide">Confirm Update</h3>
                         <div className="text-amber-100/70 text-base leading-relaxed text-center font-light">
                             {pendingAction.type === 'core' ? (
-                                <>Changing passcode for <span className="text-white font-bold">{pendingAction.value.name}</span>.<div className="mt-6 p-4 bg-black/40 border border-amber-500/20"><span className="text-xs uppercase tracking-widest text-amber-500/50 block mb-2">New Passcode</span><span className="text-2xl font-mono text-cyan-300 tracking-[0.2em]">{pendingAction.value.newCode}</span></div></>
+                                <>
+                                    Changing data for <span className="text-white font-bold">{pendingAction.value.name}</span>.
+                                    <div className="mt-6 flex flex-col gap-3">
+                                        <div className="p-3 bg-black/40 border border-white/5 flex flex-col items-start">
+                                            <span className="text-[10px] uppercase tracking-widest text-white/30 block mb-1">Passcode</span>
+                                            <span className="text-xl font-mono text-cyan-300 tracking-[0.2em]">{pendingAction.value.newCode}</span>
+                                        </div>
+                                        <div className="p-3 bg-black/40 border border-white/5 flex flex-col items-start">
+                                            <span className="text-[10px] uppercase tracking-widest text-white/30 block mb-1">Clue</span>
+                                            <span className="text-sm font-serif italic text-amber-200/80">{pendingAction.value.newClue}</span>
+                                        </div>
+                                    </div>
+                                </>
                             ) : (
                                 <>Changing status to: <span className="text-white font-bold block mt-2 text-xl font-serif">{pendingAction.type === 'state' ? pendingAction.value : `${pendingAction.type} ${pendingAction.value ? 'Active' : 'Dormant'}`}</span></>
                             )}

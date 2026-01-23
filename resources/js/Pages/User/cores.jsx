@@ -11,6 +11,14 @@ import UnlockDialog from '@components/UnlockDialog'; // Import the dialog
 
 // --- Configuration ---
 const PROGRESSION = ['xurith', 'thevia', 'euprus', 'northgard'];
+
+const CLUE = {
+    xurith: 'Look underneath',
+    thevia: 'the twilight star',
+    euprus: 'shining it\'s briliance',
+    northgard: 'within the night sky',
+}
+
 const PASSCODES = {
     xurith: '1234',
     thevia: '1234',
