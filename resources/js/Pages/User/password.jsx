@@ -39,7 +39,7 @@ export default function ChangePassword() {
         setIsSidebarOpen(false);
         setTimeout(() => {
             setIsLoggingOut(true);
-            setTimeout(() => router.visit('/'), 300); 
+            setTimeout(() => router.visit('/'), 1000); 
         }, 350);
     };
 
@@ -236,15 +236,15 @@ export default function ChangePassword() {
                     onClose={() => setShowModal(false)}
                 >
                     <div className="flex flex-col justify-center items-center text-center h-full w-full space-y-3">
-                        <p className="font-caudex text-xs text-white tracking-[0.2em] uppercase drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] leading-tight font-bold">
+                        <h1 className="text-[0px] font-caudex sm:text-xs text-white tracking-[0.2em] uppercase drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] leading-tight font-bold">
                             Let The Deep Uncover Your Purpose
-                        </p>
+                        </h1>
 
-                        <h2 className="font-caudex text-4xl text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] leading-tight font-bold">
+                        <h1 className="font-caudex px-10 sm:px-0 text-xl sm:text-4xl text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] leading-tight font-bold">
                             Are you sure to <br /> change the password?
-                        </h2>
+                        </h1>
 
-                        <div className="flex gap-6 mt-4">                   
+                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-4">                   
                             <button
                                 onClick={() => setShowModal(false)}
                                 className="relative flex items-center justify-center h-12 min-w-[150px] md:min-w-[180px] px-6 group active:scale-95 transition-transform"
@@ -282,11 +282,11 @@ export default function ChangePassword() {
                     onClose={() => setShowSuccess(false)}
                 >
                     <div className="flex flex-col justify-center items-center h-full w-full text-left relative">    
-                        <h2 className="font-caudex text-3xl md:text-4xl text-white drop-shadow-[0_3px_3px_rgba(0,0,0,0.8)] leading-snug font-bold px-4">
+                        <h1 className="font-caudex text-2xl md:text-4xl text-white drop-shadow-[0_3px_3px_rgba(0,0,0,0.8)] leading-snug font-bold px-10 sm:px-4">
                             Your password already <br /> changed, don't forget it <br /> again!
-                        </h2>
+                        </h1>
                     
-                        <div className="absolute bottom-0 right-3">
+                        <div className="absolute bottom-0 right-7 sm:right-3">
                             <img 
                                 src={logoImg} 
                                 alt="Logo" 
@@ -297,11 +297,11 @@ export default function ChangePassword() {
                 </BlueModalWrapper>
 
                 {/* 7. NAVIGASI & SIDEBAR*/}
-                <div className={`absolute top-6 left-6 z-50 transition-all duration-700 ${!inputLocked ? 'opacity-100' : 'opacity-0 -translate-x-10'}`}>
+                <div className={`absolute top-6 left-6 z-60 transition-all duration-700 ${!inputLocked ? 'opacity-100' : 'opacity-0 -translate-x-10'}`}>
                     <ButtonSidebar onClick={toggleSidebar} />
                 </div>
 
-                <div className={`absolute top-6 right-6 z-50 transition-all duration-700 ${!inputLocked ? 'opacity-100' : 'opacity-0 translate-x-10'}`}>
+                <div className={`absolute top-6 right-6 z-60 transition-all duration-700 ${!inputLocked ? 'opacity-100' : 'opacity-0 translate-x-10'}`}>
                     <ButtonHome onClick={() => router.visit('/user/home')} />
                 </div>
 

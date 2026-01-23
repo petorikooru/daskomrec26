@@ -86,7 +86,7 @@ export default function Shift() {
 
     useEffect(() => {
         const showTimer = setTimeout(() => setShowImage(true), 300);
-        const zoomTimer = setTimeout(() => { setIsZooming(false); setInputLocked(false); }, 1800);
+        const zoomTimer = setTimeout(() => { setIsZooming(false); setInputLocked(false); }, 100);
         const skipIntro = () => {
             clearTimeout(showTimer); clearTimeout(zoomTimer);
             setShowImage(true); setIsZooming(false); setInputLocked(false);

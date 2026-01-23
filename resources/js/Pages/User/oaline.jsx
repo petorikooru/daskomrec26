@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Head, router } from '@inertiajs/react';
 
 import ButtonSidebar from '@components/ButtonSidebar';
@@ -14,25 +14,39 @@ import qrCodeImg from '@assets/logo/Code.jpeg';
 
 export default function OaLinePage() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [inputLocked, setInputLocked] = useState(true);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const lineInfo = {
         id: "@492ehaee",
         link: "https://line.me/R/ti/p/%40492ehaee" 
     };
 
+    const toggleSidebar = () => {
+        if (inputLocked || isLoggingOut) return;
+        setIsSidebarOpen(prev => !prev);
+    };
+
+    const handleLogout = () => {
+        setInputLocked(true);
+        setIsSidebarOpen(false);
+        setTimeout(() => {
+            setIsLoggingOut(true);
+            setTimeout(() => router.visit('/'), 1000); 
+        }, 350);
+    };
+
+    useEffect(() => {
+        const zoomTimer = setTimeout(() => {
+            setInputLocked(false); 
+        }, 500);
+    }, []);
+
     return (
         <>
             <Head title="OA Line Information" />
             <div className="relative w-full h-screen overflow-hidden text-white font-caudex">
 
-                {/* --- NAVIGATION --- */}
-                <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-50">
-                    <ButtonSidebar onClick={() => setIsSidebarOpen(true)} />
-                </div>
-
-                <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50">
-                    <ButtonHome onClick={() => router.visit('/user/home')} />
-                </div>
 
                 {/* --- BACKGROUND --- */}
                 <div className="absolute inset-0 z-0">
@@ -126,11 +140,20 @@ export default function OaLinePage() {
                     </div>
                 </div>
 
+                {/* 7. NAVIGASI & SIDEBAR*/}
+                <div className={`absolute top-6 left-6 z-60 transition-all duration-700 ${!inputLocked ? 'opacity-100' : 'opacity-0 -translate-x-10'}`}>
+                    <ButtonSidebar onClick={toggleSidebar} />
+                </div>
+
+                <div className={`absolute top-6 right-6 z-60 transition-all duration-700 ${!inputLocked ? 'opacity-100' : 'opacity-0 translate-x-10'}`}>
+                    <ButtonHome onClick={() => router.visit('/user/home')} />
+                </div>
+
                 {/* --- SIDEBAR --- */}
                 <UserSidebar
                     isOpen={isSidebarOpen}
                     onClose={() => setIsSidebarOpen(false)}
-                    onLogout={() => router.post('/logout')} 
+                    onLogout={handleLogout}
                 />
 
             </div>
