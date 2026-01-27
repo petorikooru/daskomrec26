@@ -18,9 +18,20 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'nim',
         'password',
+        'is_admin',
+        'last_activity',
+        'last_seen_announcement',
+    ];
+
+    protected $casts = [
+        'is_admin' => 'boolean',
+    ];
+
+    protected $attributes = [
+        'is_admin' => false,
+        'last_activity' => 1766312339,
     ];
 
     /**
@@ -41,8 +52,31 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the profile for the user.
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * Get the plottingans for the user.
+     */
+    public function plottingans()
+    {
+        return $this->hasMany(Plottingan::class);
+    }
+
+    /**
+     * Get the caas stages for the user.
+     */
+    public function caasStages()
+    {
+        return $this->hasMany(CaasStage::class);
     }
 }
