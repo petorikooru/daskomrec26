@@ -97,3 +97,8 @@ sudo chmod 755 /run/mysqld
 
 sudo systemctl restart mariadb
 ```
+
+# Resources
+
+Github: [https://github.com/89luca89/distrobox](https://github.com/89luca89/distrobox)
+Website: [https://distrobox.it/](https://distrobox.it/)
